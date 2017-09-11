@@ -17,8 +17,7 @@ env:
 
 build:
   ci:
-    - gem install rails
-    - rails --version
+    - gem install
     - rake test
   post_ci:
     - docker build -t $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER .
