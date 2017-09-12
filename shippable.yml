@@ -12,7 +12,7 @@ services:
 
 env:
   global:
-    - DOCKER_ACC=679404489841.dkr.ecr.us-east-1.amazonaws.com # replace with your ECR URL
+    - DOCKER_ACC=288971733297.dkr.ecr.us-east-1.amazonaws.com # replace with your ECR URL
     - DOCKER_REPO=ruby-demo
 
 build:
@@ -30,31 +30,31 @@ build:
     - $SHIPPABLE_BUILD_DIR/.rvm/gems/ruby-2.3.4
 
 integrations:
-  notifications:
-    - integrationName: slack-master
-      type: slack
-      recipients:
-        - #demoChannelMaster
-      branches:
-        only:
-          - master
-      on_success: change
-      on_failure: always
-      on_cancel: never
-      on_start: never
-      on_pull_request: always
-    - integrationName: slack-feature
-      type: slack
-      recipients:
-        - #demoChannelFeature
-      branches:
-        only:
-          - feat*
-      on_success: change
-      on_failure: always
-      on_cancel: never
-      on_start: never
-      on_pull_request: always
+  # notifications:
+  #   - integrationName: slack
+  #     type: slack
+  #     recipients:
+  #       - #demoChannelMaster
+  #     branches:
+  #       only:
+  #         - master
+  #     on_success: change
+  #     on_failure: always
+  #     on_cancel: never
+  #     on_start: never
+  #     on_pull_request: always
+  #   - integrationName: slack
+  #     type: slack
+  #     recipients:
+  #       - #demoChannelFeature
+  #     branches:
+  #       only:
+  #         - feat*
+  #     on_success: change
+  #     on_failure: always
+  #     on_cancel: never
+  #     on_start: never
+  #     on_pull_request: always
 
   hub:
     - integrationName: ttrahan-ecr
