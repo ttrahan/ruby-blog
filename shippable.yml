@@ -28,7 +28,7 @@ build:
     - echo versionName=$BRANCH.$BUILD_NUMBER > /build/state/rubyblog-img-vm.env
   cache: true
   cache_dir_list:
-    - $SHIPPABLE_BUILD_DIR/.rvm/gems/ruby-2.3.4
+    - /usr/local/rvm/gems/ruby-2.3.3
 
 integrations:
   hub:
