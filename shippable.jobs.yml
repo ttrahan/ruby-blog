@@ -1,0 +1,38 @@
+jobs:
+
+# runCI job that builds and pushes artifact
+  - name: ruby-blog_runCI
+    type: runCI
+    steps:
+      - OUT: rubyblog-img-vm
+    flags:
+      - rubyBlog
+  
+# Generate manifest
+  - name: rubyblog-manifest-vm
+    type: manifest
+    steps:
+      - IN: rubyblog-img-vm
+      - IN: rubyblog-img-options-vm-test
+      - TASK: managed
+    flags:
+      - rubyBlog
+
+# Deploy to TEST environment
+  - name: rubyblog-deploy-vm-test
+    type: runSh
+    steps:
+      - IN: rubyblog-manifest-vm
+      - IN: rubyblog-ssh
+      - IN: rubyblog-cluster-vm-test
+      - IN: rubyblog-params-vm-test
+      - TASK: 
+        - script: |
+            for n in vms; do
+              ssh ec2-user@$n bash -c "'
+                docker stop rubyapp && docker rm rubyapp
+                docker run --name "rubyapp" 679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo:master.7
+              '"
+            done
+    flags:
+      - rubyBlog

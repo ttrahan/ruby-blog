@@ -1,0 +1,56 @@
+resources:
+
+#---------------------------------------------------------------#
+#------------------------------ Dev ----------------------------#
+#---------------------------------------------------------------#
+
+# Docker Image
+  - name: rubyblog-img-vm
+    type: image
+    integration: dr-ecr # replace with your Amazon ECR integration name
+    pointer:
+      # replace with your Amazon ECR URL
+      sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo" 
+      isPull: false
+    seed:
+      versionName: master.1
+    flags:
+      - rubyBlog
+
+# TEST Docker Image Options
+  - name: rubyblog-img-options-vm-test
+    type: dockerOptions
+    version:
+      memory: 64
+      cpuShares: 128
+      portMappings:
+        - 0:80
+      labels:   
+        app: rubydemo
+        env: test
+    flags:
+      - rubyBlog
+
+# TEST env vars
+  - name: rubyblog-params-vm-test
+    type: params
+    version:
+      params:
+        ENVIRONMENT: "TEST"
+        PORT: 80
+    flags:
+      - rubyBlog
+
+# SSH key stored in Shippable
+  - name: rubyblog-ssh          
+    type: integration
+    integration: dr-keypair-us-east
+    flags:
+      - rubyBlog
+
+# TEST env - VM cluster
+  - name: rubyblog-cluster-vm-test
+    type: cluster
+    integration: docker-on-vm-test # replace with your AWS integration name
+    flags:
+      - rubyBlog

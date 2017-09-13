@@ -12,7 +12,7 @@ services:
 
 env:
   global:
-    - DOCKER_ACC=288971733297.dkr.ecr.us-east-1.amazonaws.com # replace with your ECR URL
+    - DOCKER_ACC=679404489841.dkr.ecr.us-east-1.amazonaws.com # replace with your ECR URL
     - DOCKER_REPO=ruby-demo
 
 build:
@@ -24,12 +24,15 @@ build:
     - docker push $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER
   on_success:
     # save the new image state for use later in the pipeline
-    - echo versionName=$BRANCH.$BUILD_NUMBER > /build/state/rubydemo-image.env
+    - echo versionName=$BRANCH.$BUILD_NUMBER > /build/state/rubyblog-img-vm.env
   cache: true
   cache_dir_list:
     - $SHIPPABLE_BUILD_DIR/.rvm/gems/ruby-2.3.4
 
 integrations:
+  hub:
+    - integrationName: ttrahan-ecr
+      type: ecr
   # notifications:
   #   - integrationName: slack
   #     type: slack
@@ -55,7 +58,3 @@ integrations:
   #     on_cancel: never
   #     on_start: never
   #     on_pull_request: always
-
-  hub:
-    - integrationName: ttrahan-ecr
-      type: ecr
