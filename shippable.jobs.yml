@@ -27,11 +27,12 @@ jobs:
       - IN: rubyblog-cluster-vm-test
       - IN: rubyblog-params-vm-test
       - TASK: 
+        - script: declare -a vms && export vms[0]=34.234.225.35
         - script: |
             for n in vms; do
               ssh ec2-user@$n bash -c "'
                 docker stop rubyapp && docker rm rubyapp
-                docker run --name "rubyapp" 679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo:master.7
+                docker run --name "rubyapp" 679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo:master.15
               '"
             done
     flags:

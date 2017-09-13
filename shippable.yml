@@ -17,6 +17,7 @@ env:
 
 build:
   ci:
+    - ls /usr/local/rvm/gems/ruby-2.3.3
     - bundle install
     - rake test
   post_ci:
