@@ -44,9 +44,9 @@ resources:
     flags:
       - rubyBlog
 
-# TEST env - VM cluster
-  - name: rubyblog-cluster-vm-test
-    type: cluster
-    integration: docker-on-vm-test # replace with your AWS integration name
-    flags:
-      - rubyBlog
+# # TEST env - VM cluster
+#   - name: rubyblog-cluster-vm-test
+#     type: cluster
+#     integration: docker-on-vm-test # replace with your AWS integration name
+#     flags:
+#       - rubyBlog

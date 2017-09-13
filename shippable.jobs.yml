@@ -24,7 +24,7 @@ jobs:
     steps:
       - IN: rubyblog-manifest-vm
       - IN: rubyblog-ssh
-      - IN: rubyblog-cluster-vm-test
+      # - IN: rubyblog-cluster-vm-test
       - IN: rubyblog-params-vm-test
       - TASK: 
         - script: declare -a vms && export vms[0]=34.234.225.35
