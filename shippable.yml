@@ -31,7 +31,7 @@ build:
 
 integrations:
   hub:
-    - integrationName: ttrahan-ecr
+    - integrationName: dr-ecr
       type: ecr
   # notifications:
   #   - integrationName: slack
