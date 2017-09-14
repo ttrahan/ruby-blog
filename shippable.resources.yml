@@ -4,7 +4,8 @@ resources:
   - name: ecr-config
     type: cliConfig
     integration: dr-ecr
-    pointer: us-east-1
+    pointer: 
+      region: us-east-1
   
   
 # Docker Image
