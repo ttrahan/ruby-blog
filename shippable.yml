@@ -18,6 +18,7 @@ env:
 build:
   ci:
     - ls /usr/local/rvm/gems/ruby-2.3.3
+    - bundle package
     - bundle install
     - rake test
   post_ci:
@@ -28,7 +29,8 @@ build:
     - echo versionName=$BRANCH.$BUILD_NUMBER > /build/state/rubyblog-img-vm.env
   cache: true
   cache_dir_list:
-    - /usr/local/rvm/gems/ruby-2.3.3
+    - /usr/local/rvm/gems/$(rvm strings 2.3.3)/specifications
+    - /usr/local/rvm/gems/$(rvm strings 2.3.3)/gems
 
 integrations:
   hub:
