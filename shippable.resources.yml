@@ -1,5 +1,12 @@
 resources:
 
+# CLI config for Amazon ECR
+  - name: ecr-config
+    type: cliConfig
+    integration: dr-ecr
+    pointer: us-east-1
+  
+  
 # Docker Image
   - name: rubyblog-img-vm
     type: image

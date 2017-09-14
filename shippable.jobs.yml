@@ -23,17 +23,17 @@ jobs:
     type: runSh
     steps:
       - IN: rubyblog-manifest-vm
+      - IN: ecr-config
       - IN: rubyblog-ssh
-      # - IN: rubyblog-cluster-vm-test
       - IN: rubyblog-params-vm-test
       - TASK: 
         - script: declare -a VMS && export VMS && VMS[0]=34.234.225.35
-        - script: ECR_PASSWORD=$RUBYBLOGMANIFESTVM_INTEGRATION_AWS_SECRET_ACCESS_KEY
+        - script: DOCKER_LOGIN = $(aws ecr get-login --region us-east-1 --no-include-email)
         - script: |
             for n in $VMS; do
               ssh -i $RUBYBLOGSSH_KEYPATH ec2-user@${n} bash -c "'
+                $DOCKER_LOGIN
                 docker stop rubyapp || true && docker rm rubyapp || true
-                docker login -u ttrahan -p $ECR_PASSWORD -e none https:679404489841.dkr.ecr.us-east-1.amazonaws.com
                 docker run --name "rubyapp" 679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo:master.15
               '"
             done
