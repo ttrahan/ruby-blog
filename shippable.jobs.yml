@@ -39,8 +39,10 @@ jobs:
             for n in $VMS; do
               ssh -i $RUBYBLOGSSH_KEYPATH ec2-user@${n} bash -c "'
                 $DOCKER_LOGIN
+                docker ps
                 docker stop rubyapp || true && docker rm rubyapp || true
                 docker run -d --name "rubyapp" -p 0:3000 679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo:master.21
+                docker ps
               '"
             done
     flags:
