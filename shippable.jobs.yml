@@ -28,12 +28,10 @@ jobs:
       - IN: rubyblog-params-vm-test
       - TASK: 
         - script: declare -a VMS && export VMS && VMS[0]=34.234.225.35
-        - script: "echo 'without: '$RUBYBLOGSSH_KEYPATH"
-        - script: "echo 'with: '$RUBYBLOGSSH_INTEGRATION_KEYPATH"
         - script: |
             for n in $VMS; do
               ssh -i $RUBYBLOGSSH_KEYPATH ec2-user@${n} bash -c "'
-                docker stop rubyapp && docker rm rubyapp
+                docker stop rubyapp || true && docker rm rubyapp || true
                 docker run --name "rubyapp" 679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo:master.15
               '"
             done
