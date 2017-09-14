@@ -32,16 +32,13 @@ jobs:
         - script: VMS=(34.234.225.35)
         - script: "export DOCKER_LOGIN=$(aws ecr get-login)"
         - script: export IMAGE=${RUBYBLOGIMAGE_SOURCENAME}:${RUBYBLOGIMAGE_VERSIONNAME}
-        - script: "echo 'image: '$IMAGE"
-        - script: export PORT_MAP=${RUBYBLOGOPTIONSTEST_VERSION_PORTMAPPINGS}
-        - script: echo $PORT_MAP
         - script: |
             for n in $VMS; do
               ssh -i $RUBYBLOGSSH_KEYPATH ec2-user@${n} bash -c "'
                 $DOCKER_LOGIN
                 docker ps
                 docker stop rubyapp || true && docker rm rubyapp || true
-                docker run -d --name "rubyapp" -l rubyapp:mysql -p 80:3000 -e RAILS_ENV=development 679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo:master.21
+                docker run -d --name "rubyapp" -l rubyapp:mysql -p 80:3000 -e RAILS_ENV=development $IMAGE
                 docker ps
               '"
             done
