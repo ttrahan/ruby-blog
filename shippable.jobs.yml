@@ -28,8 +28,8 @@ jobs:
       - IN: rubyblog-params-vm-test
       - TASK: 
         - script: declare -a VMS && export VMS && VMS[0]=34.234.225.35
-        - script: echo "without: "$RUBYBLOGSSH_KEYPATH
-        - script: echo "with: "$RUBYBLOGSSH_INTEGRATION_KEYPATH
+        - script: "echo 'without: '$RUBYBLOGSSH_KEYPATH"
+        - script: "echo 'with: '$RUBYBLOGSSH_INTEGRATION_KEYPATH"
         - script: |
             for n in $VMS; do
               ssh -i $RUBYBLOGSSH_KEYPATH ec2-user@${n} bash -c "'
