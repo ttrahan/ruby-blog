@@ -4,7 +4,7 @@ jobs:
   - name: ruby-blog_runCI
     type: runCI
     steps:
-      - OUT: rubyblog-img
+      - OUT: rubyblog-image
     flags:
       - rubyBlog
   
