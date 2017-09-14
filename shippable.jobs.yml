@@ -27,7 +27,7 @@ jobs:
       # - IN: rubyblog-cluster-vm-test
       - IN: rubyblog-params-vm-test
       - TASK: 
-        - script: declare -a vms && export vms = (34.234.225.35)
+        - script: declare -a vms && export vms && vms[0]=34.234.225.35
         - script: |
             for n in vms; do
               ssh ec2-user@$n bash -c "'
