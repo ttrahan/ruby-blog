@@ -10,7 +10,7 @@ resources:
       - rubyBlog
   
 # Docker Image
-  - name: rubyblog-img
+  - name: rubyblog-image
     type: image
     integration: dr-ecr # replace with your Amazon ECR integration name
     pointer:
