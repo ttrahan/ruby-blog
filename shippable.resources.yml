@@ -28,7 +28,7 @@ resources:
       memory: 64
       cpuShares: 128
       portMappings:
-        - 0:80
+        - 0:3000
       labels:   
         app: rubydemo
         env: test
