@@ -27,14 +27,15 @@ jobs:
       - IN: rubyblog-ssh
       - IN: rubyblog-params-vm-test
       - TASK: 
-        - script: declare -a VMS && export VMS && VMS[0]=34.234.225.35
+        - script: declare -a VMS && export VMS
+        - script: VMS[0]=34.234.225.35
         - script: "export DOCKER_LOGIN=$(aws ecr get-login)"
         - script: |
             for n in $VMS; do
               ssh -i $RUBYBLOGSSH_KEYPATH ec2-user@${n} bash -c "'
                 $DOCKER_LOGIN
                 docker stop rubyapp || true && docker rm rubyapp || true
-                docker run -d --name "rubyapp" 679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo:master.15
+                docker run -d --name "rubyapp" 679404489841.dkr.ecr.us-east-1.amazonaws.com/ruby-demo:master.20
               '"
             done
     flags:
