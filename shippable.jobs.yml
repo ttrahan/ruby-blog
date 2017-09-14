@@ -30,10 +30,10 @@ jobs:
         - script: declare -a VMS && export VMS
         - script: VMS=(34.234.225.35)
         - script: "export DOCKER_LOGIN=$(aws ecr get-login)"
-        - script: ls $RUBYBLOGMANIFESTVM_PATH
-        - script: export IMAGE_URL=$(shipctl get_json_value $RUBYBLOGMANIFESTVM_PATH/manifest.json images[0].image)
-        - script: export IMAGE_TAG=$(shipctl get_json_value $RUBYBLOGMANIFESTVM_PATH/manifest.json images[0].tag)
-        - script: export PORT_MAP=$(shipctl get_json_value $RUBYBLOGMANIFESTVM_PATH/manifest.json images[0].portMappings)
+        - script: cat $RUBYBLOGMANIFESTVM_PATH/version.json
+        - script: export IMAGE_URL=$(shipctl get_json_value $RUBYBLOGMANIFESTVM_PATH/version.json images[0].image)
+        - script: export IMAGE_TAG=$(shipctl get_json_value $RUBYBLOGMANIFESTVM_PATH/version.json images[0].tag)
+        - script: export PORT_MAP=$(shipctl get_json_value $RUBYBLOGMANIFESTVM_PATH/version.json images[0].portMappings)
         - script: echo $IMAGE_URL:$IMAGE_URL
         - script: echo $PORT_MAP
         - script: |
