@@ -8,17 +8,26 @@ jobs:
     flags:
       - rubyBlog
   
-# # Generate manifest
+# # Generate manifest - for managed deploy job
 #   - name: rubyblog-manifest
 #     type: manifest
 #     steps:
-#       - IN: rubyblog-img
-#       - IN: rubyblog-img-options-test
+#       - IN: rubyblog-image
+#       - IN: rubyblog-options-test
 #       - TASK: managed
 #     flags:
 #       - rubyBlog
+#
+# # Deploy to TEST environment - managed job
+#   - name: rubyblog-deploy-test
+#     type: deploy
+#     steps:
+#       - IN: rubyblog-manifest
+#       - IN: rubyblog-cluster-test
+#       - IN: rubyblog-params-test
+#       - TASK: managed
 
-# Deploy to TEST environment
+# Deploy to TEST environment - scripted job
   - name: rubyblog-deploy-test
     type: runSh
     steps:
