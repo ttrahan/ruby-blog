@@ -28,7 +28,7 @@ jobs:
       - IN: rubyblog-params-vm-test
       - TASK: 
         - script: declare -a VMS && export VMS && VMS[0]=34.234.225.35
-        - script: DOCKER_LOGIN = $(aws ecr get-login)
+        - script: export DOCKER_LOGIN = $(aws ecr get-login)
         - script: |
             for n in $VMS; do
               ssh -i $RUBYBLOGSSH_KEYPATH ec2-user@${n} bash -c "'
