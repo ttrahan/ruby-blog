@@ -4,37 +4,36 @@ jobs:
   - name: ruby-blog_runCI
     type: runCI
     steps:
-      - OUT: rubyblog-img-vm
+      - OUT: rubyblog-img
     flags:
       - rubyBlog
   
-# Generate manifest
-  - name: rubyblog-manifest-vm
-    type: manifest
-    steps:
-      - IN: rubyblog-img-vm
-      - IN: rubyblog-img-options-vm-test
-      - TASK: managed
-    flags:
-      - rubyBlog
+# # Generate manifest
+#   - name: rubyblog-manifest
+#     type: manifest
+#     steps:
+#       - IN: rubyblog-img
+#       - IN: rubyblog-img-options-test
+#       - TASK: managed
+#     flags:
+#       - rubyBlog
 
 # Deploy to TEST environment
-  - name: rubyblog-deploy-vm-test
+  - name: rubyblog-deploy-test
     type: runSh
     steps:
-      - IN: rubyblog-manifest-vm
-      - IN: ecr-config
+      - IN: rubyblog-image
+      - IN: rubyblog-options-test
+      - IN: rubyblog-ecr-config
       - IN: rubyblog-ssh
-      - IN: rubyblog-params-vm-test
+      - IN: rubyblog-params-test
       - TASK: 
         - script: declare -a VMS && export VMS
         - script: VMS=(34.234.225.35)
         - script: "export DOCKER_LOGIN=$(aws ecr get-login)"
-        - script: cat $RUBYBLOGMANIFESTVM_PATH/version.json
-        - script: export IMAGE_URL=$(shipctl get_json_value $RUBYBLOGMANIFESTVM_PATH/version.json images[0].image)
-        - script: export IMAGE_TAG=$(shipctl get_json_value $RUBYBLOGMANIFESTVM_PATH/version.json images[0].tag)
-        - script: export PORT_MAP=$(shipctl get_json_value $RUBYBLOGMANIFESTVM_PATH/version.json images[0].portMappings)
-        - script: echo $IMAGE_URL:$IMAGE_URL
+        - script: export IMAGE=${RUBYBLOGIMAGE_SOURCENAME}:${RUBYBLOGIMAGE_VERSIONNAME}
+        - script: "echo 'image: '$IMAGE"
+        - script: export PORT_MAP=${RUBYBLOGOPTIONSTEST_VERSION_PORTMAPPINGS}
         - script: echo $PORT_MAP
         - script: |
             for n in $VMS; do

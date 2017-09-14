@@ -1,15 +1,16 @@
 resources:
 
 # CLI config for Amazon ECR
-  - name: ecr-config
+  - name: rubyblog-ecr-config
     type: cliConfig
     integration: dr-ecr
     pointer: 
       region: us-east-1
-  
+    flags:
+      - rubyBlog
   
 # Docker Image
-  - name: rubyblog-img-vm
+  - name: rubyblog-img
     type: image
     integration: dr-ecr # replace with your Amazon ECR integration name
     pointer:
@@ -22,7 +23,7 @@ resources:
       - rubyBlog
 
 # TEST Docker Image Options
-  - name: rubyblog-img-options-vm-test
+  - name: rubyblog-options-test
     type: dockerOptions
     version:
       memory: 64
@@ -36,7 +37,7 @@ resources:
       - rubyBlog
 
 # TEST env vars
-  - name: rubyblog-params-vm-test
+  - name: rubyblog-params-test
     type: params
     version:
       params:
@@ -53,8 +54,8 @@ resources:
       - rubyBlog
 
 # # TEST env - VM cluster
-#   - name: rubyblog-cluster-vm-test
+#   - name: rubyblog-cluster-test
 #     type: cluster
-#     integration: docker-on-vm-test # replace with your AWS integration name
+#     integration: docker-on-test # replace with your AWS integration name
 #     flags:
 #       - rubyBlog
